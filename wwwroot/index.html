@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8" />
+    <title>OthelloB</title>
+    <base href="/" />
+    <link href="css/app.css" rel="stylesheet" />
+    <link href="css/bulma.min.css" rel="stylesheet" />
+    <link href="manifest.json" rel="manifest" />
+    
+    <style>
+	    .cell {
+		    width: 10vh;
+		    height: 10vh;
+		    border: 2px solid gray;
+	    }
+    </style>
+
+    <!-- If you add any scoped CSS files, uncomment the following to load them
+    <link href="OthelloB.styles.css" rel="stylesheet" /> -->
+</head>
+
+<body>
+<div id="app">
+	<p class="title is-3">Loading Blazor...</p>
+	<progress class="progress is-large is-info" max="100"></progress>
+</div>
+
+<div id="blazor-error-ui">
+	An unhandled error has occurred.
+	<a href="" class="reload">Reload</a>
+	<a class="dismiss">🗙</a>
+</div>
+<script src="_framework/blazor.webassembly.js"></script>
+<script>navigator.serviceWorker.register('service-worker.js');</script>
+
+
+<script>
+/*
+    function createTable() {
+        var tmp = "";
+        for (var i = 0; i < 8; i++) {
+            var r = "<tr>";
+            for (var j = 0; j < 8; j++) r += "<td class=\"cell\" @onclick=\"() => HandleInput({ij})\" id=\"cell-{ij}\"></td>\n".replace("{ij}", i * 10 + j).replace("{ij}", i * 10 + j);
+            //document.getElementById("game-board").innerHTML += r + "</tr>";
+            tmp += r + "</tr>";
+        }
+        console.log(tmp);
+    }
+*/
+
+    function draw(id, color) {
+        document.getElementById(id).style.backgroundColor = color;
+    }
+</script>
+</body>
+
+</html>

@@ -1,0 +1,405 @@
+﻿@page "/"
+@using OthelloB.Lib
+@using System.Runtime.InteropServices
+@inject IJSRuntime JSRuntime
+
+
+<div style="align-items: center; display: flex; justify-content: center;">
+	<div>
+		<table>
+			<tbody id="game-board">
+			<tr>
+				<td class="cell" @onclick="() => HandleInput(0)" id="cell-00"></td>
+				<td class="cell" @onclick="() => HandleInput(1)" id="cell-01"></td>
+				<td class="cell" @onclick="() => HandleInput(2)" id="cell-02"></td>
+				<td class="cell" @onclick="() => HandleInput(3)" id="cell-03"></td>
+				<td class="cell" @onclick="() => HandleInput(4)" id="cell-04"></td>
+				<td class="cell" @onclick="() => HandleInput(5)" id="cell-05"></td>
+				<td class="cell" @onclick="() => HandleInput(6)" id="cell-06"></td>
+				<td class="cell" @onclick="() => HandleInput(7)" id="cell-07"></td>
+			</tr>
+			<tr>
+				<td class="cell" @onclick="() => HandleInput(10)" id="cell-10"></td>
+				<td class="cell" @onclick="() => HandleInput(11)" id="cell-11"></td>
+				<td class="cell" @onclick="() => HandleInput(12)" id="cell-12"></td>
+				<td class="cell" @onclick="() => HandleInput(13)" id="cell-13"></td>
+				<td class="cell" @onclick="() => HandleInput(14)" id="cell-14"></td>
+				<td class="cell" @onclick="() => HandleInput(15)" id="cell-15"></td>
+				<td class="cell" @onclick="() => HandleInput(16)" id="cell-16"></td>
+				<td class="cell" @onclick="() => HandleInput(17)" id="cell-17"></td>
+			</tr>
+			<tr>
+				<td class="cell" @onclick="() => HandleInput(20)" id="cell-20"></td>
+				<td class="cell" @onclick="() => HandleInput(21)" id="cell-21"></td>
+				<td class="cell" @onclick="() => HandleInput(22)" id="cell-22"></td>
+				<td class="cell" @onclick="() => HandleInput(23)" id="cell-23"></td>
+				<td class="cell" @onclick="() => HandleInput(24)" id="cell-24"></td>
+				<td class="cell" @onclick="() => HandleInput(25)" id="cell-25"></td>
+				<td class="cell" @onclick="() => HandleInput(26)" id="cell-26"></td>
+				<td class="cell" @onclick="() => HandleInput(27)" id="cell-27"></td>
+			</tr>
+			<tr>
+				<td class="cell" @onclick="() => HandleInput(30)" id="cell-30"></td>
+				<td class="cell" @onclick="() => HandleInput(31)" id="cell-31"></td>
+				<td class="cell" @onclick="() => HandleInput(32)" id="cell-32"></td>
+				<td class="cell" @onclick="() => HandleInput(33)" id="cell-33"></td>
+				<td class="cell" @onclick="() => HandleInput(34)" id="cell-34"></td>
+				<td class="cell" @onclick="() => HandleInput(35)" id="cell-35"></td>
+				<td class="cell" @onclick="() => HandleInput(36)" id="cell-36"></td>
+				<td class="cell" @onclick="() => HandleInput(37)" id="cell-37"></td>
+			</tr>
+			<tr>
+				<td class="cell" @onclick="() => HandleInput(40)" id="cell-40"></td>
+				<td class="cell" @onclick="() => HandleInput(41)" id="cell-41"></td>
+				<td class="cell" @onclick="() => HandleInput(42)" id="cell-42"></td>
+				<td class="cell" @onclick="() => HandleInput(43)" id="cell-43"></td>
+				<td class="cell" @onclick="() => HandleInput(44)" id="cell-44"></td>
+				<td class="cell" @onclick="() => HandleInput(45)" id="cell-45"></td>
+				<td class="cell" @onclick="() => HandleInput(46)" id="cell-46"></td>
+				<td class="cell" @onclick="() => HandleInput(47)" id="cell-47"></td>
+			</tr>
+			<tr>
+				<td class="cell" @onclick="() => HandleInput(50)" id="cell-50"></td>
+				<td class="cell" @onclick="() => HandleInput(51)" id="cell-51"></td>
+				<td class="cell" @onclick="() => HandleInput(52)" id="cell-52"></td>
+				<td class="cell" @onclick="() => HandleInput(53)" id="cell-53"></td>
+				<td class="cell" @onclick="() => HandleInput(54)" id="cell-54"></td>
+				<td class="cell" @onclick="() => HandleInput(55)" id="cell-55"></td>
+				<td class="cell" @onclick="() => HandleInput(56)" id="cell-56"></td>
+				<td class="cell" @onclick="() => HandleInput(57)" id="cell-57"></td>
+			</tr>
+			<tr>
+				<td class="cell" @onclick="() => HandleInput(60)" id="cell-60"></td>
+				<td class="cell" @onclick="() => HandleInput(61)" id="cell-61"></td>
+				<td class="cell" @onclick="() => HandleInput(62)" id="cell-62"></td>
+				<td class="cell" @onclick="() => HandleInput(63)" id="cell-63"></td>
+				<td class="cell" @onclick="() => HandleInput(64)" id="cell-64"></td>
+				<td class="cell" @onclick="() => HandleInput(65)" id="cell-65"></td>
+				<td class="cell" @onclick="() => HandleInput(66)" id="cell-66"></td>
+				<td class="cell" @onclick="() => HandleInput(67)" id="cell-67"></td>
+			</tr>
+			<tr>
+				<td class="cell" @onclick="() => HandleInput(70)" id="cell-70"></td>
+				<td class="cell" @onclick="() => HandleInput(71)" id="cell-71"></td>
+				<td class="cell" @onclick="() => HandleInput(72)" id="cell-72"></td>
+				<td class="cell" @onclick="() => HandleInput(73)" id="cell-73"></td>
+				<td class="cell" @onclick="() => HandleInput(74)" id="cell-74"></td>
+				<td class="cell" @onclick="() => HandleInput(75)" id="cell-75"></td>
+				<td class="cell" @onclick="() => HandleInput(76)" id="cell-76"></td>
+				<td class="cell" @onclick="() => HandleInput(77)" id="cell-77"></td>
+			</tr>
+			</tbody>
+		</table>
+	</div>
+</div>
+<div id="message-box" style="align-items: center; display: flex; justify-content: center;">@messageText</div>
+<div id="menu-bar" style="align-items: center; display: flex; justify-content: center; @menuStyle">
+	<button class="button is-primary m-1" @onclick="PlayGame">Start Game</button>
+	<button class="button is-primary m-1" @onclick="WatchGame">Watch Game</button>
+
+</div>
+
+@code
+{
+	Game currentGame;
+	string messageText, menuStyle;
+	const int DELAY = 10;
+	bool inGame, inTurn;
+	/*
+	Board BOARD;
+	APlayer AIPlayer;
+	Color PlayerColor;
+	private int DELAY = 1000;
+	bool PlayerCanMove;
+	*/
+
+	protected override void OnAfterRender(bool firstRender)
+	{
+		//JSRuntime.InvokeVoidAsync("createTable");
+		if (firstRender)
+			inGame = false;
+
+	}
+
+	public async void PlayGame()
+	{
+		if (inGame) return;
+		inGame = true;
+
+		menuStyle = "display: none;";
+
+		double[] weights = new double[1] { 0 };
+		currentGame = new Game(new PlayerHuman(Color.Black), 
+			new PlayerAI(Color.White, new AIParameters(AIParameters.FromPointsLinear(0, 0.5, 1, 0.5), AIParameters.FromPointsLinear(0, 0.5, 1, 0), AIParameters.FromPointsLinear(0, 0, 1, 10))));
+		//currentGame = new Game(new PlayerHuman(Color.Black), new PlayerRandom(Color.White));
+		await _ShowBoard();
+		await _ShowValidMoves();
+	}
+
+	public async void WatchGame()
+	{
+		if (inGame) return;
+		inGame = true;
+
+		menuStyle = "display: none;";
+
+		double[] weights = new double[1] { 0 };
+		currentGame = new Game(new PlayerAI(Color.Black, new AIParameters(AIParameters.FromPointsLinear(0, 0.5, 1, 0.5), AIParameters.FromPointsLinear(0, 0.5, 1, 0), AIParameters.FromPointsLinear(0, 2, 1, 10))), new PlayerRandom(Color.White));
+		//currentGame.Board.PlayMove(0, 0, Color.White);
+		//currentGame.Board.PlayMove(0, 1, Color.White);
+		//currentGame.Board.PlayMove(1, 0, Color.White);
+		//currentGame = new Game(new PlayerRandom(Color.Black), new PlayerRandom(Color.White));
+		await _ShowBoard();
+
+		int counter = 0;
+		while (counter < 48 && (currentGame.RunAITurn() || ! currentGame.IsGameOver())) {
+			await DoTurn();
+			counter++;
+		}
+		currentGame.Board._DebugPrintStability();
+		messageText = "Game over! The winner is " + currentGame.GetWinnerString();
+		StateHasChanged();
+
+		inGame = false;
+	}
+
+
+	public async void WatchGame_Backup()
+	{
+		if (inGame) return;
+		inGame = true;
+
+		menuStyle = "display: none;";
+
+		double[] weights = new double[1] { 0 };
+		currentGame = new Game(new PlayerAI(Color.Black, new AIParameters(AIParameters.FromPointsLinear(0, 0, 1, 1), AIParameters.FromPointsLinear(0, 0.5, 1, 0), weights)), new PlayerRandom(Color.White));
+		//currentGame = new Game(new PlayerRandom(Color.Black), new PlayerRandom(Color.White));
+		await _ShowBoard();
+
+		while (currentGame.RunAITurn() || !currentGame.IsGameOver()) await DoTurn();
+
+		messageText = "Game over! The winner is " + currentGame.GetWinnerString();
+		StateHasChanged();
+
+		inGame = false;
+	}
+
+	public async Task HandleInput(int arg)
+	{
+		if (inTurn || ! inGame) return;
+		inTurn = true;
+
+		Console.WriteLine("Board clicked: " + arg);
+		Square move = new Square(arg / 10, arg % 10);
+		bool doAIMove = false;
+
+		if (currentGame.GetValidMoves().Count == 0)
+		{
+			currentGame.Turn = currentGame.Board.GetOpposingColor(currentGame.Turn);
+			Console.WriteLine("Found no moves! Skipping to AI move.");
+			doAIMove = true;
+		}
+		else
+		{
+			if (currentGame.RunHumanTurn(move))
+			{
+				doAIMove = true;
+			}
+			else
+			{
+				messageText = "Invalid move, please try again.";
+				StateHasChanged();
+			}
+		}
+
+		if (doAIMove) {
+			await DoTurn();
+
+			if (currentGame.IsGameOver())
+			{
+				messageText = "Game over! The winner is " + currentGame.GetWinnerString();
+				StateHasChanged();
+				inGame = false;
+			}
+
+			currentGame.RunAITurn();
+			await DoTurn();
+
+			if (currentGame.IsGameOver())
+			{
+				messageText = "Game over! The winner is " + currentGame.GetWinnerString();
+				StateHasChanged();
+				inGame = false;
+			}
+		}
+
+		if (currentGame.GetValidMoves().Count == 0)
+		{
+			messageText = "No valid moves! Click anywhere to continue.";
+			StateHasChanged();
+			currentGame.Turn = currentGame.Board.GetOpposingColor(currentGame.Turn);
+			if (currentGame.IsGameOver())
+			{
+				messageText = "Game over! The winner is " + currentGame.GetWinnerString();
+				StateHasChanged();
+				inGame = false;
+			}
+
+			inGame = false;
+		}
+
+		inTurn = false;
+		Console.WriteLine("Ready for next input.");
+	}
+
+	public async Task DoTurn()
+	{
+		Console.WriteLine("Updating board display.");
+		messageText = "Next turn: " + (currentGame.Turn == Color.Black ? "Black" : "White");
+		StateHasChanged();
+
+		await _ShowBoard();
+		await _ShowValidMoves();
+	}
+		/*
+	{
+		Console.WriteLine("Board clicked: " + arg);
+		if (!PlayerCanMove) return;
+
+		PlayerCanMove = false;
+		Square move = new Square(arg / 10, arg % 10);
+
+	//Check if move is valid
+		LinkedList<Square> validMoves = BOARD.GetValidMoves(PlayerColor);
+		bool isValidMove = false;
+		foreach (Square s in validMoves)
+		{
+			if (s.x == move.x && s.y == move.y) isValidMove = true;
+		}
+
+		if (!isValidMove)
+		{
+			PlayerCanMove = true;
+			msg = "Invalid move.";
+			Console.WriteLine("Invalid move.");
+			return;
+		}
+
+		BOARD.PlayMove(move.x, move.y, PlayerColor);
+		await _ShowBoard(BOARD);
+		await RunAIMove();
+		PlayerCanMove = true;
+		await _ShowMoves(BOARD.GetValidMoves(PlayerColor), "green");
+		if (BOARD.IsGameOver()) msg = "Game Over!";
+	}
+
+	public async void InitializeGame(Color playerColor)
+	{
+		PlayerColor = playerColor;
+		PlayerCanMove = false;
+		BOARD = new Board();
+		await _ShowBoard(BOARD);
+		AIPlayer = new PlayerRandom(PlayerColor == Color.White ? Color.Black : Color.White);
+
+		if (PlayerColor == Color.White) await RunAIMove();
+		await _ShowMoves(BOARD.GetValidMoves(PlayerColor), "green");
+		PlayerCanMove = true;
+	}
+
+	public async Task RunAIMove()
+	{
+		Square move = AIPlayer.GetMove(BOARD);
+		if (move.x != -1)
+		{
+			await _ShowMoves(BOARD.GetValidMoves(Color.Black), "green");
+			await Task.Delay(DELAY);
+			await _ShowMove(move, "lightgreen");
+			await Task.Delay(DELAY);
+			BOARD.PlayMove(move.x, move.y, Color.Black);
+			await _ShowBoard(BOARD);
+		}
+	}
+
+	public async void RunRandomGame()
+	{
+		Board b = new Board();
+		PlayerRandom white = new PlayerRandom(Color.White);
+		PlayerRandom black = new PlayerRandom(Color.Black);
+		while (!b.IsGameOver())
+		{
+			Console.WriteLine("Running next move.");
+
+			Square mv = white.GetMove(b);
+
+			_ShowMoves(b.GetValidMoves(Color.White), "green");
+			LinkedList<Square> s = new LinkedList<Square>();
+			s.AddFirst(mv);
+			await Task.Delay(DELAY);
+			_ShowMoves(s, "lightgreen");
+			await Task.Delay(DELAY);
+
+			if (mv.x != -1) b.PlayMove(mv.x, mv.y, Color.White);
+			_ShowBoard(b);
+			await Task.Delay(DELAY);
+
+
+			if (b.IsGameOver()) break;
+
+
+			Square mv2 = black.GetMove(b);
+
+
+			_ShowMoves(b.GetValidMoves(Color.Black), "green");
+			LinkedList<Square> s2 = new LinkedList<Square>();
+			s2.AddFirst(mv2);
+			await Task.Delay(DELAY);
+			_ShowMoves(s2, "lightgreen");
+			await Task.Delay(DELAY);
+
+			if (mv2.x != -1) b.PlayMove(mv2.x, mv2.y, Color.Black);
+			_ShowBoard(b);
+			await Task.Delay(DELAY);
+		}
+
+		_ShowBoard(b);
+		Console.WriteLine("Game over.");
+	}
+
+	private async Task _ShowBoard(Board b)
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			for (int j = 0; j < 8; j++)
+			{
+				await JSRuntime.InvokeVoidAsync("draw", "cell-" + i.ToString() + j.ToString(), _colorMap[(int)b.GetOwner(i, j)]);
+			}
+		}
+	}
+
+	private async Task _ShowMoves(LinkedList<Square> moves, string color)
+	{
+		foreach (Square move in moves) await JSRuntime.InvokeVoidAsync("draw", "cell-" + move.x.ToString() + move.y.ToString(), color);
+	}
+	*/
+
+	//New Code
+	private async Task _ShowMove(Square move, string color)
+	{
+		await JSRuntime.InvokeVoidAsync("draw", "cell-" + move.x.ToString() + move.y.ToString(), color);
+	}
+
+	private async Task _ShowBoard()
+	{
+		for (int i = 0; i < 8; i++)
+		{
+			for (int j = 0; j < 8; j++) await _ShowMove(new Square(i, j), currentGame.GetDrawColor(i, j));
+		}
+		await Task.Delay(DELAY);
+	}
+
+	private async Task _ShowValidMoves()
+	{
+		foreach (Square s in currentGame.GetValidMoves()) await _ShowMove(s, "green");
+		await Task.Delay(DELAY);
+	}
+}
